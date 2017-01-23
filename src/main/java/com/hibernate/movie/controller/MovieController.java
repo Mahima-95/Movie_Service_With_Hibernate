@@ -43,8 +43,8 @@ public class MovieController {
 	@RequestMapping(value="/updateMovie")
 	public String updateMovie(){
 		Movie movie = new Movie();
-		movie.setMovieId(1);
-		movie.setMovieProductionAmount(22000002);
+		/*movie.setMovieId(1);
+		movie.setMovieProductionAmount(22000002);*/
 		return movieService.updateMovie(movie);
 		
 	}

@@ -20,7 +20,7 @@ public class MovieConfiguration {
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://10.2.0.207:3306/mahima");//10.2.0.207:3306
+		dataSource.setUrl("jdbc:mysql://localhost:3306/mahima");//10.2.0.207:3306
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		return dataSource;
@@ -31,7 +31,8 @@ public class MovieConfiguration {
 	public SessionFactory getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(
 				dataSource);
-		sessionFactoryBuilder.addAnnotatedClass(Movie.class);
+		/*sessionFactoryBuilder.addAnnotatedClass(Movie.class);*/
+		sessionFactoryBuilder.scanPackages("com.hibernate.movie.pojo");
 		sessionFactoryBuilder.addProperties(getHibernateProperties());
 		return sessionFactoryBuilder.buildSessionFactory();
 	}
@@ -41,7 +42,7 @@ public class MovieConfiguration {
 		properties.put("hibernate.show_sql", "true");
 		properties.put("hibernate.dialect",
 				"org.hibernate.dialect.MySQLDialect");
-		properties.put("hibernate.hbm2ddl.auto", "update");
+		properties.put("hibernate.hbm2ddl.auto", "create");
 		properties.put("hibernate.current_session_context_class", "thread");
 		return properties;
 }

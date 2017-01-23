@@ -1,6 +1,8 @@
 package com.hibernate.movie.dao.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import com.hibernate.movie.dao.MovieDAO;
 import com.hibernate.movie.pojo.Movie;
+import com.hibernate.movie.pojo.MovieIndustry;
 
 @Repository
 public class MovieDaoIMPL implements MovieDAO {
@@ -30,7 +33,16 @@ public class MovieDaoIMPL implements MovieDAO {
 			session = getSession();
 		}
 		System.out.println(transaction);
-		session.save(movie);
+		MovieIndustry movieIndustry = new MovieIndustry("bollywood");
+		Movie movie2 = new Movie("a", "b", "s", 22, movieIndustry);
+		Movie movie3 = new Movie("a", "b", "s", 22, movieIndustry);
+		Movie movie4 = new Movie("a", "b", "s", 22, movieIndustry);
+		Set<Movie> movies = new HashSet<Movie>();
+		movies.add(movie2);
+		movies.add(movie3);
+		movies.add(movie4);
+		movieIndustry.setMovie(movies);
+		session.save(movieIndustry);
 		transaction.commit();
 		session.close();
 		return "successfully added...!!!!";
